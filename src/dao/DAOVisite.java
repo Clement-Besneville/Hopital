@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
-import dao.*;
 
 public class DAOVisite implements IDAO<Visite,Integer> {
 
@@ -31,7 +30,7 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 			{
 				Compte c = new Compte(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"),typeCompte.Medecin);
 				Patient p=new Patient(rs.getInt("patient.id"),rs.getString("patient.nom"),rs.getString("patient.prenom"));
-				v=new Visite(rs.getInt("id"),p,c,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite")));
+				v=new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite")));
 			}
 			rs.close();
 			ps.close();
@@ -112,10 +111,11 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 
 		while(rs.next())
 		{
-			if (rs.getString("id_patient").equals(id))
+			if (rs.getInt("id_patient")==id)
 			{
-				visites.add(new Visite(rs.getInt("numero"), rs.getInt("id_patient"),rs.getInt("id_medecin"),rs.getInt("prix"),rs.getInt("salle"),
-						LocalDate.parse(rs.getString("date_visite"))));
+				Compte c = new Compte(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"),typeCompte.Medecin);
+				Patient p=new Patient(rs.getInt("patient.id"),rs.getString("patient.nom"),rs.getString("patient.prenom"));
+				visites.add(new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite"))));
 			}
 		}
 
@@ -146,10 +146,11 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 
 				while(rs.next())
 				{
-					if (rs.getString("id_medecin").equals(id))
+					if (rs.getInt("id_medecin")==id)
 					{
-						visites.add(new Visite(rs.getInt("numero"), rs.getInt("id_patient"),rs.getInt("id_medecin"),rs.getInt("prix"),rs.getInt("salle"),
-								LocalDate.parse(rs.getString("date_visite"))));
+						Compte c = new Compte(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"),typeCompte.Medecin);
+						Patient p=new Patient(rs.getInt("patient.id"),rs.getString("patient.nom"),rs.getString("patient.prenom"));
+						visites.add(new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite"))));
 					}
 				}
 

@@ -86,7 +86,48 @@ public class App {
 	
 	public static void menuMedecin() {
 		
+		System.out.println("Menu Medecin");
+		System.out.println("1 - Rendre la salle disponible");
+		System.out.println("2 - Voir la liste des patients ");
+		System.out.println("3 - Voir le prochain patient");
+		System.out.println("4-  Sauvegarder la liste des visites ");
+		System.out.println("5 - Se deconnecter");
+
+		int choix = saisieInt("Choisir un menu");
+
+		switch(choix) 
+		{
+		case 1 : rendreSalleDisponible();break;
+		case 2 : addFicherListePatients();break;
+		case 3 : afficherProchainPatient();break;
+		case 4 : sauvegardeListeVisites();break;
+		case 5 : connected=null;menuPrincipal();break;
+		}
+
+		menuMedecin();
 	}
+	
+	
+	public static void rendreSalleDisponible() {
+		
+		rendreSalleDisponible();
+	}
+	
+	public static void addFicherListePatients() {
+		
+		addFicherListePatients();
+	}
+	
+	public static void afficherProchainPatient() {
+		
+		afficherProchainPatient();
+	}
+	
+	public static void sauvegardeListeVisites() {
+		
+		sauvegardeListeVisites();
+	}
+	
 
 	
 	//-----------------------------------

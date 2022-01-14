@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import model.*;
@@ -27,8 +26,9 @@ public class DAOPatient implements IDAO<Patient,Integer>{
 
 			while(rs.next()) 
 			{
-
-				p=new Patient(Integer id, String nom, String prenom);
+				p.setId(rs.getInt("id"));
+				p.setNom(rs.getString("nom"));
+				p.setPrenom(rs.getString("Prenom"));
 			}
 			rs.close();
 			ps.close();
@@ -60,6 +60,7 @@ public class DAOPatient implements IDAO<Patient,Integer>{
 			ps.setString(3,p.getPrenom());
 
 			ps.executeUpdate();
+
 
 			ps.close();
 			conn.close();

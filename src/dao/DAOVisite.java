@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.*;
@@ -55,39 +56,89 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 	@Override
 	public void insert(Visite o) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(Visite o) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(Integer id) {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
-	
-	
-	public List<Visite> findAllByIdPatient() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
-	
-	
-	
-	
-	public List<Visite> findAllByIdMedecin() {
-		// TODO Auto-generated method stub
-		return null;
+
 	}
 
-}
+
+
+
+
+	public List<Visite> findAllByIdPatient(Integer id) { 
+
+		List<Visite> visites=new ArrayList<Visite>();
+	try {
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
+
+		PreparedStatement ps = conn.prepareStatement("SELECT * from visite");
+
+		ResultSet rs = ps.executeQuery();
+
+		while(rs.next())
+		{
+			if (rs.getString("id_patient").equals(id))
+			{
+				visites.add(new Visite(rs.getInt("numero"), rs.getInt("id_patient"),rs.getInt("id_medecin"),rs.getInt("prix"),rs.getInt("salle"),
+						LocalDate.parse(rs.getString("date_visite"))));
+			}
+		}
+
+		rs.close();
+		ps.close();
+		conn.close();
+
+	} catch (ClassNotFoundException | SQLException e) {
+		e.printStackTrace();
+	}
+
+	return visites;
+
+	}
+
+
+
+		public List<Visite> findAllByIdMedecin(Integer id) {
+
+			List<Visite> visites=new ArrayList<Visite>();
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
+
+				PreparedStatement ps = conn.prepareStatement("SELECT * from visite");
+
+				ResultSet rs = ps.executeQuery();
+
+				while(rs.next())
+				{
+					if (rs.getString("id_medecin").equals(id))
+					{
+						visites.add(new Visite(rs.getInt("numero"), rs.getInt("id_patient"),rs.getInt("id_medecin"),rs.getInt("prix"),rs.getInt("salle"),
+								LocalDate.parse(rs.getString("date_visite"))));
+					}
+				}
+
+				rs.close();
+				ps.close();
+				conn.close();
+
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+
+			return visites;
+			
+		}
+
+	}

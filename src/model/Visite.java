@@ -13,12 +13,15 @@ public class Visite implements Serializable {
 	private LocalDate date_visite;
 	
 
+	public Visite () {
+		
+	}
+	
 	public Visite(Integer numero, Compte compte, Patient patient, Integer salle, LocalDate date_visite) {
 		super();
 		this.numero = numero;
 		this.compte = compte;
 		this.patient = patient;
-		this.prix = prix;
 		this.salle = salle;
 		this.date_visite = date_visite;
 	}

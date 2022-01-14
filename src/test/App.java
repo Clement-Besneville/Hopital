@@ -3,6 +3,9 @@ package test;
 import java.util.Scanner;
 
 import dao.DAOCompte;
+import model.Admin;
+import model.Client;
+import model.Vendeur;
 
 
 public class App {
@@ -53,4 +56,40 @@ public class App {
 		}
 		menuPrincipal();
 	}
+	
+	
+	public static void connexion() {
+
+		System.out.println("Connexion");
+		String login = saisieString("Saisir votre login");
+		String password = saisieString("Saisir votre password");
+		connected= daoC.seConnecter(login, password);
+
+		if(connected.getTypeCompte=typeCompte.Secretaire) {menuSecretaire();}
+		else if(connected.getTypeCompte=typeCompte.Medecin) {menuMedecin();}
+		else if(connected ==null) 
+		{
+			System.out.println("Identifiants invalides !");
+		}
+		menuPrincipal();
+	}
+	
+	//-----------------------------------
+	
+	public static void menuSecretaire() {
+		
+	}
+	
+	
+	//-----------------------------------
+	
+	
+	public static void menuMedecin() {
+		
+	}
+
+	
+	//-----------------------------------
+		
+		
 }

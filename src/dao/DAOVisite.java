@@ -105,7 +105,7 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
 
-		PreparedStatement ps = conn.prepareStatement("SELECT * from visite");
+		PreparedStatement ps = conn.prepareStatement("SELECT * from visite JOIN patient on patient.id=visite.id_patient JOIN compte on compte.id=visite.id_medecin");
 
 		ResultSet rs = ps.executeQuery();
 
@@ -140,7 +140,7 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 				Class.forName("com.mysql.jdbc.Driver");
 				Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
 
-				PreparedStatement ps = conn.prepareStatement("SELECT * from visite");
+				PreparedStatement ps = conn.prepareStatement("SELECT * from visite JOIN patient on patient.id=visite.id_patient JOIN compte on compte.id=visite.id_medecin");
 
 				ResultSet rs = ps.executeQuery();
 

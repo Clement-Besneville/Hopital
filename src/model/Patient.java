@@ -7,8 +7,11 @@ public class Patient implements Serializable{
 		private String nom;
 		private String prenom;
 		
+		public Patient() {
+			
+		}
+		
 		public Patient(Integer id, String nom, String prenom) {
-			super();
 			this.id = id;
 			this.nom = nom;
 			this.prenom = prenom;

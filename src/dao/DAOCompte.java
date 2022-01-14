@@ -33,11 +33,11 @@ public class DAOCompte implements IDAO <Compte, Integer> {
 			while(rs.next()) 
 			{
 
-				if(rs.getString("typecompte").equals("Secretaire")) 
+				if(rs.getString("type_compte").equals("Secretaire")) 
 				{
 					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Secretaire);
 				}
-				else if(rs.getString("typecompte").equals("Medecin")) 
+				else if(rs.getString("type_compte").equals("Medecin")) 
 				{
 					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Medecin);
 				}

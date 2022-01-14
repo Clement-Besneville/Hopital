@@ -1,5 +1,10 @@
 package test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +15,8 @@ import dao.DAOPatient;
 import dao.DAOVisite;
 import model.Compte;
 import model.Patient;
+import model.Visite;
+import model.typeCompte;
 
 
 
@@ -18,10 +25,11 @@ public class App {
 	static Compte connected = null;
 	static DAOCompte daoC = new DAOCompte();
 	static DAOPatient daoP = new DAOPatient();
-	static DAOVisite daoV = new DAOPatient);
-	static LinkedList<Patient> listeAttente = new ArrayList();
-	static List<Patient> listeVisiteMedecin = new ArrayList();
-	static Patient actuelPatient =null;
+	static DAOVisite daoV = new DAOVisite();
+	static LinkedList<Patient> listeAttente = new LinkedList();
+	static List<Visite> listeVisiteMedecin = new ArrayList();
+	static Patient actuelPatient = new Patient();
+	static Visite actuelleVisite = null;
 
 	
 	public static String saisieString(String msg) 
@@ -73,8 +81,8 @@ public class App {
 		String password = saisieString("Saisir votre password");
 		connected= daoC.seConnecter(login, password);
 
-		if(connected.getTypeCompte=typeCompte.Secretaire) {menuSecretaire();}
-		else if(connected.getTypeCompte=typeCompte.Medecin) {menuMedecin();}
+		if(connected.getType_compte()==typeCompte.Secretaire) {menuSecretaire();}
+		else if(connected.getType_compte()==typeCompte.Medecin) {menuMedecin();}
 		else if(connected ==null) 
 		{
 			System.out.println("Identifiants invalides !");
@@ -115,7 +123,7 @@ public class App {
 		System.out.println("3 - Retour au menu principale de secretaire");
 
 		int choix = saisieInt("Choisir un menu");
-
+/*
 		switch(choix) 
 		{
 		case 1 : stockerFilAttentePause();menuPrincipal();break;
@@ -123,15 +131,35 @@ public class App {
 		case 3 : menuSecretaire();break;
 
 		}
-
+*/
 		Pause();
 	}
 	
 	
+	private static void menuPatient() {
+        System.out.println("Menu verification patient dans la BDD");
+        System.out.println("1 - Si c est votre permiere visite ");
+        System.out.println("2 - si vous etes connu par notre systeme  ");
+        System.out.println("3 - aucun des cas");
+
+        int choix = saisieInt("Choisir une option");
+
+        switch(choix) 
+        {
+        case 1 : AjoutPatientBDD();break;
+        case 2 : addPatientFil();break;
+        case 3 :menuSecretaire();break;
+        }
+
+        menuPatient();
+	}
+     /*   
+    
 	private static void listAttenteAvantPause() {
+		File f=new File( "File d attente .txt");
 		FileInputStream fis=new FileInputStream(f);
 		ObjectInputStream ois=new ObjectInputStream(fis);
-		listAttente ois.readObject();
+		listeAttente = ois.readObject();
 
 	}
 
@@ -139,15 +167,16 @@ public class App {
 		File f=new File( "File d attente .txt");
 		FileOutputStream fos=new FileOutputStream(f);
 		ObjectOutputStream oos=new ObjectOutputStream(fos);
-		oos.writeObject(listAttente);
+		oos.writeObject(listeAttente);
 		oos.close();
 
 	}
+	*/
 
 	private static void showAllFileAttente() 
 	{
 		System.out.println("La liste actuelle de la fil d'attente est : ");
-		for(Patient p : ListAttente)
+		for(Patient p : listeAttente)
 		{
 			System.out.println(p);
 		}
@@ -157,8 +186,7 @@ public class App {
 	
 
 	private static void addPatientFil() {
-		Patient p;
-//		daoP.findById(p.getID);
+		
 		System.out.println("Menu verification patient dans la file d attente");
 		System.out.println("1 - ID Patient ");
 		System.out.println("2 - Retour au menu principale de secretaire  ");
@@ -168,7 +196,10 @@ public class App {
 
 		switch(choix) 
 		{
-		case 1 : listAttente.add(daoP.findById(saisieInt("votre ID patient")));break;
+		case 1 : listeAttente.add(daoP.findById(saisieInt("votre ID patient")));
+		System.out.println("Ajout du patient "+listeAttente.peekLast());
+		menuSecretaire();
+		break;
 		case 2 : menuSecretaire();break;
 		}
 
@@ -177,7 +208,7 @@ public class App {
 
 	private static void AjoutPatientBDD() {
 		
-		Patient p;
+
 		
 		System.out.println("Ajout patient dans la BDD");
 		System.out.println("1 - Votre nom ");
@@ -189,10 +220,12 @@ public class App {
 
 		switch(choix) 
 		{
-		case 1 :p.getNom(saisieString("votre nom"));break;
-		case 2 :p.getPrenom(saisieString("votre Prenom"));break;
-		case 3 :daoP.insert(p);System.out.println("ID du patient "+ p.getPrenom+" "+p.getNom+"est :"+p.getID);break;
-		case 5 :addPatientFil();break;
+		case 1 :actuelPatient.setNom(saisieString("votre nom"));break;
+		case 2 :actuelPatient.setPrenom(saisieString("votre Prenom"));break;
+		case 3 :daoP.insert(actuelPatient);
+		System.out.println("ID du patient "+ actuelPatient.getPrenom()+" "+actuelPatient.getNom()+"est :"+actuelPatient.getId());
+		break;
+		case 4 :addPatientFil();break;
 		}
 
 		AjoutPatientBDD();
@@ -251,7 +284,7 @@ public class App {
 			System.out.println(actuelPatient);
 		} else if(listeVisiteMedecin.size()==10) {
 			
-			for (Patient p : listeVisiteMedecin) {daoV.insert(p);};
+			for (Visite v : listeVisiteMedecin) {daoV.insert(v);};
 			listeVisiteMedecin.clear();
 			actuelPatient=listeAttente.peekFirst();
 			System.out.println("Information du nouveau patient");
@@ -260,7 +293,7 @@ public class App {
 			
 		} else {
 			actuelPatient =listeAttente.remove();
-			listeVisiteMedecin.add(actuelPatient);
+			listeVisiteMedecin.add(actuelleVisite);
 			actuelPatient=listeAttente.peekFirst();
 			System.out.println("Information du nouveau patient");
 			System.out.println(actuelPatient);
@@ -325,7 +358,7 @@ public class App {
 
 		switch(choix) 
 		{
-		case 1 : for (Patient p : listeVisiteMedecin) {daoV.insert(p);};
+		case 1 : for (Visite v : listeVisiteMedecin) {daoV.insert(v);};
 		listeVisiteMedecin.clear();
 		break;
 		
@@ -333,6 +366,7 @@ public class App {
 		
 		}
 		sauvegardeListeVisites();
+		
 	}
 	
 	

@@ -1,10 +1,13 @@
 package test;
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import dao.DAOCompte;
 import model.Admin;
 import model.Client;
+import model.Patient;
+import model.Refuge;
 import model.Vendeur;
 
 
@@ -13,9 +16,10 @@ public class App {
 	static Compte connected = null;
 	static DAOCompte daoC = new DAOCompte();
 	static DAOPatient daoP = new DAOPatient();
-	static DAOVisite daoV = new DAOVisite();
-	
+	static DAOVisite daoV = new DAOPatient);
+	static LinkedList<Patient> listeAttente = new ArrayList();
 
+	
 	public static String saisieString(String msg) 
 	{
 		Scanner sc = new Scanner(System.in);
@@ -147,17 +151,62 @@ public class App {
 	
 	public static void rendreSalleDisponible() {
 		
+		System.out.println("Menu salle dispo");
+		System.out.println("1 - Modification login");
+		System.out.println("2 - Retour vers le menu Medecin");
+		
+
+		int choix = saisieInt("Choisir votre action");
+
+
+		switch(choix) 
+		{
+		case 1 : listeAttente.remove();break;
+		
+		case 2 : menuMedecin();break;
+		}
+	
 		rendreSalleDisponible();
 	}
 	
 	public static void afficherListePatients() {
+		
+		System.out.println("Menu affichage liste des patients");
+		System.out.println("1 - afficher la liste des patients");
+		System.out.println("2 - Retour vers le menu Medecin");
+		
+
+		int choix = saisieInt("Choisir votre action");
+
+
+		switch(choix) 
+		{
+		case 1 : System.out.println(listeAttente);break;
+		
+		case 2 : menuMedecin();break;
+		}
 		
 		afficherListePatients();
 	}
 	
 	public static void afficherProchainPatient() {
 		
+		System.out.println("Menu affichage prochains patients");
+		System.out.println("1 - afficher le prochain patient");
+		System.out.println("2 - Retour vers le menu Medecin");
+		
+
+		int choix = saisieInt("Choisir votre action");
+
+
+		switch(choix) 
+		{
+		case 1 : System.out.println(listeAttente.peekFirst());break;
+		
+		case 2 : menuMedecin();break;
+		}
 		afficherProchainPatient();
+		
 	}
 	
 	public static void sauvegardeListeVisites() {

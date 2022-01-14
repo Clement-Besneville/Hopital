@@ -96,7 +96,7 @@ public class App {
 
 		switch(choix) 
 		{
-		case 1 : addPatient();break;
+		case 1 : menuPatient();break;
 		case 2 : showAllFileAttente();break;
 		case 3 : Pause();break;
 		case 4 : connected=null;menuPrincipal();break;
@@ -109,23 +109,97 @@ public class App {
 	
 	private static void Pause() 
 	{
-		// TODO Auto-generated method stub
-		
+		System.out.println("Menu pause Secretaire");
+		System.out.println("1 - Partir en pause");
+		System.out.println("2 - Revenir de la pause ");
+		System.out.println("3 - Retour au menu principale de secretaire");
+
+		int choix = saisieInt("Choisir un menu");
+
+		switch(choix) 
+		{
+		case 1 : stockerFilAttentePause();menuPrincipal();break;
+		case 2 : listAttenteAvantPause();menuSecretaire();break;
+		case 3 : menuSecretaire();break;
+
+		}
+
+		Pause();
+	}
+	
+	
+	private static void listAttenteAvantPause() {
+		FileInputStream fis=new FileInputStream(f);
+		ObjectInputStream ois=new ObjectInputStream(fis);
+		listAttente ois.readObject();
+
+	}
+
+	private static void stockerFilAttentePause() {
+		File f=new File( "File d attente .txt");
+		FileOutputStream fos=new FileOutputStream(f);
+		ObjectOutputStream oos=new ObjectOutputStream(fos);
+		oos.writeObject(listAttente);
+		oos.close();
+
 	}
 
 	private static void showAllFileAttente() 
 	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	private static void addPatient() 
-	{
-		// TODO Auto-generated method stub
+		System.out.println("La liste actuelle de la fil d'attente est : ");
+		for(Patient p : ListAttente)
+		{
+			System.out.println(p);
+		}
 		
 	}
 	
+	
 
+	private static void addPatientFil() {
+		Patient p;
+//		daoP.findById(p.getID);
+		System.out.println("Menu verification patient dans la file d attente");
+		System.out.println("1 - ID Patient ");
+		System.out.println("2 - Retour au menu principale de secretaire  ");
+		
+
+		int choix = saisieInt("Choisir une option");
+
+		switch(choix) 
+		{
+		case 1 : listAttente.add(daoP.findById(saisieInt("votre ID patient")));break;
+		case 2 : menuSecretaire();break;
+		}
+
+		addPatientFil();
+	}
+
+	private static void AjoutPatientBDD() {
+		
+		Patient p;
+		
+		System.out.println("Ajout patient dans la BDD");
+		System.out.println("1 - Votre nom ");
+		System.out.println("2 - Votre prenom  ");
+		System.out.println("3 - Ajout patient dans la BDD ");
+		System.out.println("4 - Retour au menu add patient liste d attente");
+
+		int choix = saisieInt("Choisir une action");
+
+		switch(choix) 
+		{
+		case 1 :p.getNom(saisieString("votre nom"));break;
+		case 2 :p.getPrenom(saisieString("votre Prenom"));break;
+		case 3 :daoP.insert(p);System.out.println("ID du patient "+ p.getPrenom+" "+p.getNom+"est :"+p.getID);break;
+		case 5 :addPatientFil();break;
+		}
+
+		AjoutPatientBDD();
+		
+	}
+
+	
 	//-----------------------------------
 	
 	

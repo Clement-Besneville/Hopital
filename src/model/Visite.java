@@ -6,9 +6,9 @@ import java.time.LocalDate;
 public class Visite implements Serializable {
 
 	private Integer numero;
-	private Compte compte;
+	private Medecin medecin;
 	private Patient patient;
-	private int prix=20;
+	private int prix;
 	private Integer salle;
 	private LocalDate date_visite;
 	
@@ -17,13 +17,22 @@ public class Visite implements Serializable {
 		
 	}
 	
-	public Visite(Integer numero, Compte compte, Patient patient, Integer salle, LocalDate date_visite) {
-		super();
+	public Visite(Integer numero, Medecin compte, Patient patient, Integer salle, LocalDate date_visite,int prix) {
 		this.numero = numero;
-		this.compte = compte;
+		this.medecin = compte;
 		this.patient = patient;
 		this.salle = salle;
 		this.date_visite = date_visite;
+		this.prix=prix;
+	}
+	
+	public Visite(Medecin compte, Patient patient) {
+	
+		this.medecin = compte;
+		this.patient = patient;
+		this.salle = compte.getSalle();
+		this.date_visite = LocalDate.now();
+		this.prix=20;
 	}
 
 	public Integer getNumero() {
@@ -50,16 +59,16 @@ public class Visite implements Serializable {
 
 
 
-	public Compte getCompte() {
-		return compte;
+	public Medecin getCompte() {
+		return medecin;
 	}
 
 	public Patient getPatient() {
 		return patient;
 	}
 
-	public void setCompte(Compte compte) {
-		this.compte = compte;
+	public void setCompte(Medecin compte) {
+		this.medecin = compte;
 	}
 
 	public void setPatient(Patient patient) {
@@ -78,9 +87,10 @@ public class Visite implements Serializable {
 		this.date_visite = date_visite;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Visite [numero=" + numero + ", compte=" + compte + ", patient=" + patient + ", prix=" + prix
+		return "Visite [numero=" + numero + ", compte=" + medecin + ", patient=" + patient + ", prix=" + prix
 				+ ", salle=" + salle + ", date_visite=" + date_visite + "]";
 	}
 

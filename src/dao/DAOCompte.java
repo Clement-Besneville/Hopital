@@ -7,9 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
 import model.Compte;
-import model.typeCompte;
+import model.Medecin;
+import model.Secretaire;
 
 
 
@@ -35,11 +35,11 @@ public class DAOCompte implements IDAO <Compte, Integer> {
 
 				if(rs.getString("type_compte").equals("Secretaire")) 
 				{
-					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Secretaire);
+					connect = new Secretaire(rs.getInt("id"),rs.getString("login"), rs.getString("password"));
 				}
 				else if(rs.getString("type_compte").equals("Medecin")) 
 				{
-					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Medecin);
+					connect = new Medecin(rs.getInt("id"),rs.getString("login"), rs.getString("password"));
 				}
 			}
 
@@ -72,11 +72,11 @@ public class DAOCompte implements IDAO <Compte, Integer> {
 
 				if(rs.getString("typecompte").equals("Secretaire")) 
 				{
-					c = new Compte((Integer)rs.getInt("id"), rs.getString("login"), rs.getString("password"),typeCompte.Secretaire);
+					c = new Secretaire((Integer)rs.getInt("id"), rs.getString("login"), rs.getString("password"));
 				}
 				else if(rs.getString("typecompte").equals("Medecin")) 
 				{
-					c = new Compte((Integer)rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Medecin);
+					c = new Medecin((Integer)rs.getInt("id"),rs.getString("login"), rs.getString("password"));
 				}
 			}
 			rs.close();

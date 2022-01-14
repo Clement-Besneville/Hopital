@@ -29,9 +29,9 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 
 			while(rs.next()) 
 			{
-				Compte c = new Compte(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"),typeCompte.Medecin);
+				Medecin c = new Medecin(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"));
 				Patient p=new Patient(rs.getInt("patient.id"),rs.getString("patient.nom"),rs.getString("patient.prenom"));
-				v=new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite")));
+				v=new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite")),rs.getInt("prix"));
 			}
 			rs.close();
 			ps.close();
@@ -63,16 +63,23 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
 
-			PreparedStatement ps = conn.prepareStatement("INSERT INTO visite VALUES(?,?,?,?,?,?)");
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO visite VALUES(?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 
-			ps.setInt(1,1);
-			ps.setInt(2,n);
-			ps.setInt(3,m);
+			ps.setInt(1,0);
+			ps.setInt(2,m);
+			ps.setInt(3,n);
 			ps.setDouble(4,v.getPrix());
 			ps.setInt(5,v.getSalle());
 			ps.setString(6,v.getDate_visite().toString());
 
 			ps.executeUpdate();
+			
+			ResultSet rs = ps.getGeneratedKeys();
+			if(rs.next()) {
+				p.setId(rs.getInt(1));
+			}
+
+			rs.close();
 			
 			ps.close();
 			conn.close();
@@ -115,9 +122,9 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 		{
 			if (rs.getInt("id_patient")==id)
 			{
-				Compte c = new Compte(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"),typeCompte.Medecin);
+				Medecin c = new Medecin(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"));
 				Patient p=new Patient(rs.getInt("patient.id"),rs.getString("patient.nom"),rs.getString("patient.prenom"));
-				visites.add(new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite"))));
+				visites.add(new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite")),rs.getInt("prix")));
 			}
 		}
 
@@ -150,9 +157,9 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 				{
 					if (rs.getInt("id_medecin")==id)
 					{
-						Compte c = new Compte(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"),typeCompte.Medecin);
+						Medecin c = new Medecin(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"));
 						Patient p=new Patient(rs.getInt("patient.id"),rs.getString("patient.nom"),rs.getString("patient.prenom"));
-						visites.add(new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite"))));
+						visites.add(new Visite(rs.getInt("id"),c,p,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite")),rs.getInt("prix")));
 					}
 				}
 

@@ -7,15 +7,14 @@ public class Compte implements Serializable {
 	private Integer id;
 	private String login;
 	private String password; 
-	private typeCompte type_compte;
 	
 	
-	public Compte(Integer id, String login, String password, typeCompte type_compte) {
+	public Compte(Integer id, String login, String password) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.password = password;
-		this.type_compte = type_compte;
+		
 	}
 
 
@@ -34,10 +33,6 @@ public class Compte implements Serializable {
 	}
 
 
-	public typeCompte getType_compte() {
-		return type_compte;
-	}
-
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -54,15 +49,11 @@ public class Compte implements Serializable {
 	}
 
 
-	public void setType_compte(typeCompte type_compte) {
-		this.type_compte = type_compte;
-	}
 
 
 	@Override
 	public String toString() {
-		return "Compte [id=" + id + ", login=" + login + ", password=" + password + ", type_compte=" + type_compte
-				+ "]";
+		return "Compte [id=" + id + ", login=" + login + ", password=" + password + "]";
 	}
 	
 	

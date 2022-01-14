@@ -1,14 +1,16 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import dao.DAOCompte;
-import model.Admin;
-import model.Client;
+import dao.DAOPatient;
+import dao.DAOVisite;
+import model.Compte;
 import model.Patient;
-import model.Refuge;
-import model.Vendeur;
+
 
 
 public class App {
@@ -18,6 +20,8 @@ public class App {
 	static DAOPatient daoP = new DAOPatient();
 	static DAOVisite daoV = new DAOPatient);
 	static LinkedList<Patient> listeAttente = new ArrayList();
+	static List<Patient> listeVisiteMedecin = new ArrayList();
+	static Patient actuelPatient =null;
 
 	
 	public static String saisieString(String msg) 
@@ -136,6 +140,8 @@ public class App {
 
 		int choix = saisieInt("Choisir un menu");
 
+		
+		
 		switch(choix) 
 		{
 		case 1 : rendreSalleDisponible();break;
@@ -151,17 +157,41 @@ public class App {
 	
 	public static void rendreSalleDisponible() {
 		
+		
+		
 		System.out.println("Menu salle dispo");
-		System.out.println("1 - Modification login");
+		System.out.println("1 - Appeler le prochain patient");
 		System.out.println("2 - Retour vers le menu Medecin");
+		
 		
 
 		int choix = saisieInt("Choisir votre action");
 
-
 		switch(choix) 
 		{
-		case 1 : listeAttente.remove();break;
+		case 1 : 
+			
+		if (listeVisiteMedecin.size()==0) {
+			actuelPatient=listeAttente.peekFirst();
+			System.out.println("Information du nouveau patient");
+			System.out.println(actuelPatient);
+		} else if(listeVisiteMedecin.size()==10) {
+			
+			for (Patient p : listeVisiteMedecin) {daoV.insert(p);};
+			listeVisiteMedecin.clear();
+			actuelPatient=listeAttente.peekFirst();
+			System.out.println("Information du nouveau patient");
+			System.out.println(actuelPatient);
+			
+			
+		} else {
+			actuelPatient =listeAttente.remove();
+			listeVisiteMedecin.add(actuelPatient);
+			actuelPatient=listeAttente.peekFirst();
+			System.out.println("Information du nouveau patient");
+			System.out.println(actuelPatient);
+		}
+		break;
 		
 		case 2 : menuMedecin();break;
 		}
@@ -177,7 +207,6 @@ public class App {
 		
 
 		int choix = saisieInt("Choisir votre action");
-
 
 		switch(choix) 
 		{
@@ -195,13 +224,14 @@ public class App {
 		System.out.println("1 - afficher le prochain patient");
 		System.out.println("2 - Retour vers le menu Medecin");
 		
-
 		int choix = saisieInt("Choisir votre action");
 
 
 		switch(choix) 
 		{
-		case 1 : System.out.println(listeAttente.peekFirst());break;
+		case 1 : actuelPatient=listeAttente.get(listeAttente.indexOf(listeAttente.peek())+1);
+		System.out.println(actuelPatient);
+		break;
 		
 		case 2 : menuMedecin();break;
 		}
@@ -211,8 +241,27 @@ public class App {
 	
 	public static void sauvegardeListeVisites() {
 		
+		System.out.println("Menu sauvegarde liste visites");
+		System.out.println("1 - sauvegarder la liste des visites");
+		System.out.println("2 - Retour vers le menu Medecin");
+		
+		int choix = saisieInt("Choisir votre action");
+
+		
+
+		switch(choix) 
+		{
+		case 1 : for (Patient p : listeVisiteMedecin) {daoV.insert(p);};
+		listeVisiteMedecin.clear();
+		break;
+		
+		case 2 : menuMedecin();break;
+		
+		}
 		sauvegardeListeVisites();
 	}
+	
+	
 	
 
 	

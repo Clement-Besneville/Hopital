@@ -304,7 +304,6 @@ public class App {
 		case 4 : sauvegardeListeVisites();break;
 		case 5 : sauvegardeListeVisites();connected=null;menuPrincipal();break;
 		}
-
 		menuMedecin();
 	}
 	
@@ -316,7 +315,6 @@ public class App {
 	}
 	
 	public static void rendreSalleDisponible() {
-		
 		
 		Medecin m = (Medecin) connected;
 		System.out.println("Salle "+m.getSalle()+" maintenant disponible");
@@ -337,48 +335,13 @@ public class App {
 			System.out.println(actuelPatient);
 			m.getVisites().add(creationVisiteMedecin(actuelPatient));
 		}
-		
-		System.out.println("1 - Afficher la liste d'attente");
-		System.out.println("2 - Afficher le prochain patient");
-		System.out.println("3 - Sauvegarder les visites");
-		System.out.println("4 - Retour vers le menu Medecin");
-		
-		int choix = saisieInt("Choisir votre action");
-
-
-		switch(choix) 
-		{
-		case 1 : afficherListePatients(); break;
-		case 2 : afficherProchainPatient();break;
-		case 3 : sauvegardeListeVisites();break;
-		case 4 : menuMedecin();break;
-		}
-	
-	
-		rendreSalleDisponible();
 	}
 	
 	public static void afficherListePatients() {
 		
 		System.out.println("Affichage de la liste d'attente");
 		System.out.println(listeAttente);
-		System.out.println("1 - Rendre la salle disponible");
-		System.out.println("2 - Afficher le prochain patient");
-		System.out.println("3 - Sauvegarder les visites");
-		System.out.println("4 - Retour vers le menu Medecin");
-		
-		int choix = saisieInt("Choisir votre action");
 
-
-		switch(choix) 
-		{
-		case 1 : rendreSalleDisponible();break;
-		case 2 : afficherProchainPatient();break;
-		case 3 : sauvegardeListeVisites();break;
-		case 4 : menuMedecin();break;
-		}
-		
-		afficherListePatients();
 	}
 	
 	public static void afficherProchainPatient() {
@@ -386,22 +349,6 @@ public class App {
 		System.out.println("Affichage du prochain patient");
 		actuelPatient=listeAttente.peek();
 		System.out.println(actuelPatient);
-		System.out.println("1 - Rendre la salle disponible");
-		System.out.println("2 - Afficher la liste d'attente");
-		System.out.println("3 - Sauvegarder les visites");
-		System.out.println("4 - Retour vers le menu Medecin");
-		
-		int choix = saisieInt("Choisir votre action");
-
-
-		switch(choix) 
-		{
-		case 1 : rendreSalleDisponible();break;
-		case 2 : afficherListePatients();break;
-		case 3 : sauvegardeListeVisites();break;
-		case 4 : menuMedecin();break;
-		}
-		afficherProchainPatient();
 		
 	}
 	
@@ -412,32 +359,6 @@ public class App {
 		for (Visite v : ((Medecin) connected).getVisites()) {daoV.insert(v);};
 		((Medecin) connected).getVisites().clear();
 		
-		System.out.println("1 - Rendre la salle disponible");
-		System.out.println("2 - Afficher la liste d'attente");
-		System.out.println("3 - Afficher le prochain patient");
-		System.out.println("4 - Retour vers le menu Medecin");
-		
-		int choix = saisieInt("Choisir votre action");
-
-
-		switch(choix) 
-		{
-		case 1 : rendreSalleDisponible();break;
-		case 2 : afficherListePatients();break;
-		case 3 : afficherProchainPatient(); break;
-		case 4 : menuMedecin();break;
-		}
-
-
-		sauvegardeListeVisites();
-		
 	}
-	
-	
-	
-
-	
-	//-----------------------------------
-		
 		
 }

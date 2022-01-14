@@ -127,7 +127,7 @@ public class App {
 		System.out.println("3 - Retour au menu principale de secretaire");
 
 		int choix = saisieInt("Choisir un menu");
-/*
+
 		switch(choix) 
 		{
 		case 1 : stockerFilAttentePause();menuPrincipal();break;
@@ -135,7 +135,7 @@ public class App {
 		case 3 : menuSecretaire();break;
 
 		}
-*/
+
 		Pause();
 	}
 	
@@ -169,7 +169,7 @@ public class App {
 			{
 				p = ois.readObject();
 			}
-			
+			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

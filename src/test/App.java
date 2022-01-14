@@ -2,7 +2,9 @@ package test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -155,25 +157,38 @@ public class App {
 
         menuPatient();
 	}
-     /*   
+     
     
 	private static void listAttenteAvantPause() {
-		File f=new File( "File d attente .txt");
-		FileInputStream fis=new FileInputStream(f);
-		ObjectInputStream ois=new ObjectInputStream(fis);
-		listeAttente = ois.readObject();
-
+		File f=new File( "FileAttente.txt");
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(f);
+			ObjectInputStream ois=new ObjectInputStream(fis);
+			for(Object p : listeAttente)
+			{
+				p = ois.readObject();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void stockerFilAttentePause() {
-		File f=new File( "File d attente .txt");
-		FileOutputStream fos=new FileOutputStream(f);
-		ObjectOutputStream oos=new ObjectOutputStream(fos);
-		oos.writeObject(listeAttente);
-		oos.close();
-
+		File f=new File( "FileAttente.txt");
+		FileOutputStream fos;
+		try {
+			fos = new FileOutputStream(f);
+			ObjectOutputStream oos=new ObjectOutputStream(fos);
+			oos.writeObject(listeAttente);
+			oos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
-	*/
+	
 
 	private static void showAllFileAttente() 
 	{

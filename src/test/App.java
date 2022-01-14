@@ -76,11 +76,48 @@ public class App {
 	
 	//-----------------------------------
 	
-	public static void menuSecretaire() {
-		
+	public static void menuSecretaire() 
+	{
+		System.out.println("Menu Secretaire");
+		System.out.println("1 - Ajouter un patient a la file d attente");
+		System.out.println("2 - Afficher l etat de la file d attente ");
+		System.out.println("3 - Partir en pause");
+		System.out.println("4 - Se deconnecter");
+
+		int choix = saisieInt("Choisir un menu");
+
+		switch(choix) 
+		{
+		case 1 : addPatient();break;
+		case 2 : showAllFileAttente();break;
+		case 3 : Pause();break;
+		case 4 : connected=null;menuPrincipal();break;
+		}
+
+		menuSecretaire();
+
 	}
 	
 	
+	private static void Pause() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void showAllFileAttente() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void addPatient() 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+
 	//-----------------------------------
 	
 	

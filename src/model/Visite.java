@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Visite {
+public class Visite implements Serializable {
 
 	private Integer numero;
 	private Compte compte;
@@ -17,6 +18,7 @@ public class Visite {
 		this.numero = numero;
 		this.compte = compte;
 		this.patient = patient;
+		this.prix = prix;
 		this.salle = salle;
 		this.date_visite = date_visite;
 	}

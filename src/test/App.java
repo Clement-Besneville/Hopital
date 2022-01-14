@@ -97,8 +97,9 @@ public class App {
 		System.out.println("Menu Secretaire");
 		System.out.println("1 - Ajouter un patient a la file d attente");
 		System.out.println("2 - Afficher l etat de la file d attente ");
-		System.out.println("3 - Partir en pause");
-		System.out.println("4 - Se deconnecter");
+		System.out.println("3 - Afficher la liste de visite du patient ");
+		System.out.println("4 - Partir en pause");
+		System.out.println("5 - Se deconnecter");
 
 		int choix = saisieInt("Choisir un menu");
 
@@ -106,15 +107,16 @@ public class App {
 		{
 		case 1 : menuPatient();break;
 		case 2 : showAllFileAttente();break;
-		case 3 : Pause();break;
-		case 4 : connected=null;menuPrincipal();break;
+		case 3 : System.out.println(daoV.findAllByIdPatient(saisieInt("Votre ID")));break;
+		case 4 : Pause();break;
+		case 5 : connected=null;menuPrincipal();break;
 		}
 
 		menuSecretaire();
 
 	}
 	
-	
+
 	private static void Pause() 
 	{
 		System.out.println("Menu pause Secretaire");

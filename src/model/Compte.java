@@ -1,6 +1,8 @@
 package model;
 
-public class Compte {
+import java.io.Serializable;
+
+public class Compte implements Serializable {
 
 	private Integer id;
 	private String login;

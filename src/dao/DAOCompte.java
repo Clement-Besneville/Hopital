@@ -20,7 +20,7 @@ public class DAOCompte implements IDAO <Compte, Integer> {
 		Compte connect = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/hopital?characterEncoding=UTF-8","root","");
+			Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
 
 			PreparedStatement ps = conn.prepareStatement("SELECT * from compte where login=? and password=?");
 			ps.setString(1,login);

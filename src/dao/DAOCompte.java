@@ -33,13 +33,13 @@ public class DAOCompte implements IDAO <Compte, Integer> {
 			while(rs.next()) 
 			{
 
-				if(rs.getString("type_compte").equals("Secretaire")) 
+				if(rs.getString("typecompte").equals("Secretaire")) 
 				{
-					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.valueOf("Secretaire"));
+					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Secretaire);
 				}
-				else if(rs.getString("type_compte").equals("Medecin")) 
+				else if(rs.getString("typecompte").equals("Medecin")) 
 				{
-					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.valueOf("Medecin"));
+					connect = new Compte(rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Medecin);
 				}
 			}
 
@@ -72,11 +72,11 @@ public class DAOCompte implements IDAO <Compte, Integer> {
 
 				if(rs.getString("typecompte").equals("Secretaire")) 
 				{
-					c = new Compte((Integer)rs.getInt("id"), rs.getString("login"), rs.getString("password"),typeCompte.valueOf("Secretaire"));
+					c = new Compte((Integer)rs.getInt("id"), rs.getString("login"), rs.getString("password"),typeCompte.Secretaire);
 				}
 				else if(rs.getString("typecompte").equals("Medecin")) 
 				{
-					c = new Compte((Integer)rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.valueOf("Medecin"));
+					c = new Compte((Integer)rs.getInt("id"),rs.getString("login"), rs.getString("password"),typeCompte.Medecin);
 				}
 			}
 			rs.close();

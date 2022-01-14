@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import model.*;
+import dao.*;
 
 public class DAOVisite implements IDAO<Visite,Integer> {
 
@@ -29,11 +30,7 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 			{
 				Compte c = new Compte(rs.getInt("compte.id"),rs.getString("compte.nom"),rs.getString("compte.prenom"),typeCompte.Medecin);
 				Patient p=new Patient(rs.getInt("patient.id"),rs.getString("patient.nom"),rs.getString("patient.prenom"));
-				v.setNumero(rs.getInt("id"));
-				v.setCompte(c);
-				v.setPatient(p);
-				v.setSalle(rs.getInt("salle"));
-				v.setDate_visite(LocalDate.parse(rs.getString("date_visite")));
+				v=new Visite(rs.getInt("id"),p,c,rs.getInt("salle"),LocalDate.parse(rs.getString("date_visite")));
 			}
 			rs.close();
 			ps.close();
@@ -43,7 +40,7 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 		} catch (ClassNotFoundException | SQLException e) {
 			//e.printStackTrace();
 		}
-		return p;
+		return v;
 	}
 
 	@Override
@@ -53,10 +50,35 @@ public class DAOVisite implements IDAO<Visite,Integer> {
 	}
 
 	@Override
-	public void insert(Visite o) {
-		// TODO Auto-generated method stub
+	public void insert(Visite v) {
 		
+		Compte c=v.getCompte();
+		Patient p=v.getPatient();
+		Integer n=c.getId();
+		Integer m=p.getId();
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
+
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO visite VALUES(?,?,?,?,?,?)");
+
+			ps.setInt(1,1);
+			ps.setInt(2,n);
+			ps.setInt(3,m);
+			ps.setDouble(4,v.getPrix());
+			ps.setInt(5,v.getSalle());
+			ps.setString(6,v.getDate_visite().toString());
+
+			ps.executeUpdate();
+			ps.close();
+			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
+		
+	
 
 	@Override
 	public void update(Visite o) {

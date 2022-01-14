@@ -26,9 +26,7 @@ public class DAOPatient implements IDAO<Patient,Integer>{
 
 			while(rs.next()) 
 			{
-				p.setId(rs.getInt("id"));
-				p.setNom(rs.getString("nom"));
-				p.setPrenom(rs.getString("Prenom"));
+				p=new Patient(rs.getInt("id"),rs.getString("nom"),rs.getString("Prenom"));
 			}
 			rs.close();
 			ps.close();

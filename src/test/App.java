@@ -135,7 +135,7 @@ public class App {
 		switch(choix) 
 		{
 		case 1 : rendreSalleDisponible();break;
-		case 2 : addFicherListePatients();break;
+		case 2 : afficherListePatients();break;
 		case 3 : afficherProchainPatient();break;
 		case 4 : sauvegardeListeVisites();break;
 		case 5 : connected=null;menuPrincipal();break;
@@ -150,9 +150,9 @@ public class App {
 		rendreSalleDisponible();
 	}
 	
-	public static void addFicherListePatients() {
+	public static void afficherListePatients() {
 		
-		addFicherListePatients();
+		afficherListePatients();
 	}
 	
 	public static void afficherProchainPatient() {

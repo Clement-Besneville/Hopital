@@ -60,7 +60,7 @@ public class DAOCompte implements IDAO <Compte, Integer> {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = DriverManager.getConnection(urlBdd,loginBdd,passwordBdd);
 
-			PreparedStatement ps = conn.prepareStatement("SELECT * from compte where id_compte=?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * from compte where id=?");
 			ps.setInt(1,id);
 
 
